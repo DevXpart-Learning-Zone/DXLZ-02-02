@@ -23,7 +23,7 @@ if (isset($_GET['action'])) {
 	$sql = "delete from users where id='$id'";
 	$statement = $con->query($sql) or die(mysqli_error($con));
 	if ($statement) {
-	echo 'Data deleted successfully';
+		echo 'Data deleted successfully';
 	}else{
 		echo 'Data deleted failed';
 	}
@@ -33,16 +33,20 @@ if (isset($_GET['action'])) {
 $sql = "select * from users";
 $statement = $con->query($sql) or die(mysqli_error($con));
 if ($statement) {
-	
-	// $data = $statement->fetch_assoc()
 	echo '<table>';
 	while ($row = $statement->fetch_assoc()) { ?>
-	  
+
 		<tr>
-		<td><?php echo $row['name']; ?></td>
-		<td><?php echo $row['email']; ?></td>
-		<td><?php echo $row['address']; ?></td>
-		<td><a href="?action=delete&id=<?php echo $row['id']; ?>" onclick="return(confirm('are you sure to delete?'))">Delete</a></td></tr>';
+			<td><?php echo $row['name']; ?></td>
+			<td><?php echo $row['email']; ?></td>
+			<td><?php echo $row['address']; ?></td>
+			<td>
+				<a href="?action=delete&id=<?php echo $row['id']; ?>" onclick="return(confirm('are you sure to delete?'))">Delete</a> ||
+		<a href="edit.php?action=edit&id=<?php echo $row['id']; ?>">Edit</a>
+
+
+			</td>
+		</tr>
 	<?php }
 
 	echo '</table>';
@@ -50,4 +54,6 @@ if ($statement) {
 }else{
 	echo 'wrong';
 }
+
+
 ?>
